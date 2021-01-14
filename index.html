@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Vue + Element UI</title>
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+	<link rel="stylesheet" type="text/css" href="./style/index.css">
+</head>
+<body>
+	<div id='app'>
+		<h1>同学录</h1>
+		<el-row :gutter="20">
+		  <el-col :span="6">
+		  	<el-input v-model="user.name" placeholder="请输入姓名"></el-input>
+		  </el-col>
+		  <el-col :span="6">
+		  	<el-input v-model="user.gender" placeholder="请输入性别"></el-input>
+		  </el-col>
+		  <el-col :span="6">
+		  	<el-input v-model="user.phoneNum" placeholder="请输入电话号码"></el-input>
+		  </el-col>
+		  <el-col :span="6">
+		  	  <div class="block">
+			    <el-date-picker
+			      v-model="user.birthDay"
+			      type="date"
+			      placeholder="出生日期"
+			      format="yyyy 年 MM 月 dd 日"
+      			  value-format="yyyy-MM-dd">
+			    </el-date-picker>
+			  </div>
+		  </el-col>		  
+		</el-row>
+
+	<el-button class="add-btn" type="primary" @click="addUserInfo">添加信息</el-button>
+
+
+	<div class="body">
+		 <template>
+		    <el-table
+		      :data="userData"
+		      style="width: 100%">
+
+		      <el-table-column
+		        prop="id"
+		        label="序号"
+		        width="180">
+		        <template slot-scope="scope">
+        			<span style="margin-left: 10px">{{ scope.$index + 1 }}</span>
+      			</template>
+		      </el-table-column>
+
+
+
+		      <el-table-column
+		        prop="name"
+		        label="姓名"
+		        width="180">
+		      </el-table-column>
+
+		      <el-table-column
+		        prop="gender"
+		        label="性别"
+		        width="180">
+		      </el-table-column>
+
+		      <el-table-column
+		        prop="phoneNum"
+		        label="电话号码">
+		      </el-table-column>
+
+		      <el-table-column
+		        prop="birthDay"
+		        label="出生日期"
+		        width="180">
+		      </el-table-column>
+		      <el-table-column
+		      	label="相关操作">
+		      	<template slot-scope="scope">
+		      		<el-button type="primary" icon="el-icon-edit" @click="handleEditData(scope.row,scope.$index)" circle></el-button>
+		      		<el-button type="danger" icon="el-icon-delete" @click="handleDeleteData(scope.$index)" circle></el-button>
+		      	</template>
+		      </el-table-column>
+
+		    </el-table>
+		  </template>
+	</div>
+
+
+	<el-dialog
+	  title="编辑信息"
+	  :visible.sync="dialogVisible"
+	  width="30%"
+	  :before-close="handleClose">
+	  <div>
+	  	<el-form ref="form" :model="editUser" label-width="80px">
+		  <el-form-item label="姓名">
+		    <el-input v-model="editUser.name"></el-input>
+		  </el-form-item>
+
+		  <el-form-item label="性别">
+		    <el-input v-model="editUser.gender"></el-input>
+		  </el-form-item>
+
+		  <el-form-item label="电话号码">
+		    <el-input v-model="editUser.phoneNum"></el-input>
+		  </el-form-item>
+		  
+		  <el-form-item label="出生日期">
+		    <el-col :span="11">
+		      <el-date-picker type="date" placeholder="选择日期" v-model="editUser.birthDay" style="width: 100%;">
+		      </el-date-picker>
+		    </el-col>
+		  </el-form-item>
+		</el-form>
+	   </div>
+		  <span slot="footer" class="dialog-footer">
+		    <el-button @click="dialogVisible = false">取 消</el-button>
+		    <el-button type="primary" @click="handleConfirm">确 定</el-button>
+		  </span>
+		</el-dialog>
+
+</div>
+
+</body>
+
+<!-- import Vue before Element -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script type="text/javascript" src="./javascript/index.js"></script>
+</html>
